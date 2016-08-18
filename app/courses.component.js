@@ -23,13 +23,15 @@ System.register(['angular2/core', './courses.service'], function(exports_1, cont
         execute: function() {
             CoursesComponent = (function () {
                 function CoursesComponent(courseService) {
+                    var _this = this;
                     this.title = "Component Title  ";
-                    this.courses = courseService.getCourses();
+                    courseService.getCourses('http://localhost:8080/server.php')
+                        .subscribe(function (data) { return _this.courses = JSON.parse(JSON.stringify(data)); }, function (error) { return console.log(error); }, function () { return console.log("finished"); });
                 }
                 CoursesComponent = __decorate([
                     core_1.Component({
                         selector: 'courses',
-                        template: "\n            <h2>Courses</h2>   \n            {{title}} \n            <ul>\n            <li *ngFor=\"#course of courses\"> {{course}}</li>\n            </ul>\n    ",
+                        template: "\n            <h2>Courses</h2>   \n            {{title}} \n            <ul>\n            <li *ngFor=\"#course of courses\"> {{course.brand}}</li>\n            </ul>\n    ",
                         providers: [courses_service_1.CourseService]
                     }), 
                     __metadata('design:paramtypes', [courses_service_1.CourseService])
